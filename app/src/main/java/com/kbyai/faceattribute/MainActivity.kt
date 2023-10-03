@@ -90,9 +90,6 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.buttonSettings).setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
-        findViewById<Button>(R.id.buttonAbout).setOnClickListener {
-            startActivity(Intent(this, AboutActivity::class.java))
-        }
 
         findViewById<LinearLayout>(R.id.lytBrand).setOnClickListener {
             val browse = Intent(Intent.ACTION_VIEW, Uri.parse("https://kby-ai.com"))
