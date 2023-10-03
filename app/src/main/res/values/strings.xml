@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FaceAttribute</string>
+    <string name="app_name">ĐIỂM DANH</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="settings">Settings</string>
 
@@ -7,8 +7,7 @@
     <string name="camera">Camera</string>
     <string name="thresholds">Thresholds</string>
     <string name="reset">Reset</string>
-
-    <!-- Messages Preferences -->
+    activity_main.xml
     <string name="camera_lens">Camera lens</string>
     <string name="liveness_threshold">Liveness</string>
     <string name="liveness_level">Liveness Level</string>

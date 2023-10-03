@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddMember">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20sp">
+        <ImageView
+            android:id="@+id/imgElipAdminSignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/elip"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:id="@+id/tvInstructAddMember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giữ khuôn mặt trong khung hình"
+            android:layout_gravity="center_horizontal"
+            android:textSize="10sp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="50sp"
+            android:layout_marginTop="20sp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Họ và tên: "
+                android:textStyle="bold"
+                android:textSize="20sp" />
+            <EditText
+                android:id="@+id/memberName"
+                android:layout_width="200sp"
+                android:layout_height="48dp"
+                android:hint="Nguyễn Văn A"
+                android:layout_marginLeft="6sp"
+                android:inputType="text"
+                android:maxLength="30"
+                android:textSize="20sp"
+                android:background="@drawable/edittext_border"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="50sp"
+            android:layout_marginTop="2sp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MSHS:"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+            <EditText
+                android:id="@+id/idStudent"
+                android:layout_width="200sp"
+                android:layout_height="48dp"
+                android:hint="20232065"
+                android:inputType="text"
+                android:maxLength="30"
+                android:textSize="20sp"
+                android:layout_marginLeft="40sp"
+                android:background="@drawable/edittext_border"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="50sp"
+            android:layout_marginTop="2sp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lớp: "
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+            <EditText
+                android:id="@+id/Class"
+                android:layout_width="200sp"
+                android:layout_height="48sp"
+                android:hint="12C1"
+                android:layout_marginLeft="58sp"
+                android:inputType="text"
+                android:maxLength="30"
+                android:textSize="20sp"
+                android:background="@drawable/edittext_border"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/btnAddMember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ĐĂNG KÝ"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20sp"
+            android:textSize="20sp"
+            android:backgroundTint="@color/bgRed"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20sp"
+            android:text="ĐĂNG KÝ THÀNH VIÊN"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trang chủ"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10sp"
+        android:layout_marginRight="10sp"
+        android:backgroundTint="@color/bgGreen"/>
+
+
+</RelativeLayout>
