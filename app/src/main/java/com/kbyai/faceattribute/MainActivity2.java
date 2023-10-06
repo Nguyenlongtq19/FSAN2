@@ -10,9 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.kbyai.faceattribute.Attendance;
-import com.kbyai.faceattribute.Login;
-import com.kbyai.faceattribute.R;
+import com.kbyai.facesdk.FaceSDK;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,6 +30,18 @@ public class MainActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        int ret = FaceSDK.setActivation(
+                "fGMbqRWAN9PrnQBHd3JtdbNCKJ75REHRN4yenuntm9SghMVrQztH8IQIObnN3hJc6RitR139CwnP\n" +
+                        "P/hUVlINXCk48PkGrTJlNsFUm5ErOXL2QWw7IUzQow/DALUwvKOR4Qpz3i0lHKVlrFqMOKb4y3DH\n" +
+                        "Dhb/Fh6KLywr5aWy5Lwv/hutFqe6gao9xVqpbOLq2yP+OIjPpW0teMxEjSKGhuQftp7lV9tEnv9B\n" +
+                        "lAI75/ElCUYb6vxWCqZFSGLLiDuEyTbz7Npz1rhuQkwmotgLTYrij0zzIt79TccUve9lx2xl/fqS\n" +
+                        "y6YUynuO4VN/awOJQFMv4HpFVFVupmU/ezM7Tg=="
+        );
+
+        if (ret == FaceSDK.SDK_SUCCESS) {
+            ret = FaceSDK.init(getAssets());
+        }
 
         clockTextView = findViewById(R.id.clockTextView);
 
