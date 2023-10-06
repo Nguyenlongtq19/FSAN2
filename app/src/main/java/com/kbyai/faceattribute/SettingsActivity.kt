@@ -12,8 +12,8 @@ class SettingsActivity : AppCompatActivity() {
 
     companion object {
         const val DEFAULT_CAMERA_LENS = "front"
-        const val DEFAULT_LIVENESS_THRESHOLD = "0.7"
-        const val DEFAULT_IDENTIFY_THRESHOLD = "0.8"
+        const val DEFAULT_LIVENESS_THRESHOLD = "0.5"
+        const val DEFAULT_IDENTIFY_THRESHOLD = "0.6"
         const val DEFAULT_LIVENESS_LEVEL = "0"
         const val DEFAULT_YAW_THRESHOLD = "10.0"
         const val DEFAULT_ROLL_THRESHOLD = "10.0"
