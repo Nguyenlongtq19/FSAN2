@@ -1,6 +1,5 @@
 package com.kbyai.faceattribute;
 
-
 import static androidx.camera.core.ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST;
 
 import android.Manifest;
@@ -11,7 +10,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.Image;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Size;
 import android.view.View;
 import android.widget.TextView;
@@ -29,8 +29,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.common.util.concurrent.ListenableFuture;
-import com.kbyai.faceattribute.ResultActivity;
-import com.kbyai.faceattribute.SettingsActivity;
 import com.kbyai.facesdk.FaceBox;
 import com.kbyai.facesdk.FaceDetectionParam;
 import com.kbyai.facesdk.FaceSDK;
@@ -43,16 +41,16 @@ import java.util.concurrent.Executors;
 
 public class Attendance extends AppCompatActivity {
 
-    static String TAG = CameraActivity.class.getSimpleName();
+    static String TAG = Login.class.getSimpleName();
     static int PREVIEW_WIDTH = 720;
     static int PREVIEW_HEIGHT = 1280;
 
     private ExecutorService cameraExecutorService;
     private PreviewView viewFinder;
-    private Preview preview        = null;
-    private ImageAnalysis imageAnalyzer  = null;
-    private Camera camera         = null;
-    private CameraSelector        cameraSelector = null;
+    private Preview preview = null;
+    private ImageAnalysis imageAnalyzer = null;
+    private Camera camera = null;
+    private CameraSelector cameraSelector = null;
     private ProcessCameraProvider cameraProvider = null;
 
     private FaceView faceView;
@@ -60,6 +58,17 @@ public class Attendance extends AppCompatActivity {
     private Context context;
 
     private Boolean recognized = false;
+    private Handler timeoutHandler = new Handler(Looper.getMainLooper());
+    private Runnable timeoutRunnable = new Runnable() {
+        @Override
+        public void run() {
+            // Chuyển đến LoginActivity sau 10 giây
+            Intent intent = new Intent(Attendance.this, MainActivity2.class);
+            startActivity(intent);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            finish();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,22 +96,24 @@ public class Attendance extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-
         recognized = false;
+        // Đặt việc tự động trở về LoginActivity sau 10 giây
+        timeoutHandler.postDelayed(timeoutRunnable, 10000); // 10 giây
     }
 
     @Override
     public void onPause() {
         super.onPause();
-
         faceView.setFaceBoxes(null);
+        // Hủy việc tự động trở về LoginActivity
+        timeoutHandler.removeCallbacks(timeoutRunnable);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if(requestCode == 1) {
+        if (requestCode == 1) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                     == PackageManager.PERMISSION_GRANTED) {
 
@@ -114,8 +125,7 @@ public class Attendance extends AppCompatActivity {
         }
     }
 
-    private void setUpCamera()
-    {
+    private void setUpCamera() {
         ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(Attendance.this);
         cameraProviderFuture.addListener(() -> {
 
@@ -133,8 +143,7 @@ public class Attendance extends AppCompatActivity {
     }
 
     @SuppressLint({"RestrictedApi", "UnsafeExperimentalUsageError"})
-    private void bindCameraUseCases()
-    {
+    private void bindCameraUseCases() {
         int rotation = viewFinder.getDisplay().getRotation();
 
         cameraSelector = new CameraSelector.Builder().requireLensFacing(SettingsActivity.getCameraLens(this)).build();
@@ -165,26 +174,23 @@ public class Attendance extends AppCompatActivity {
         }
     }
 
-    class FaceAnalyzer implements ImageAnalysis.Analyzer
-    {
+    class FaceAnalyzer implements ImageAnalysis.Analyzer {
         @SuppressLint("UnsafeExperimentalUsageError")
         @Override
-        public void analyze(@NonNull ImageProxy imageProxy)
-        {
+        public void analyze(@NonNull ImageProxy imageProxy) {
             analyzeImage(imageProxy);
         }
     }
 
     @SuppressLint("UnsafeExperimentalUsageError")
-    private void analyzeImage(ImageProxy imageProxy)
-    {
-        if(recognized == true) {
+    private void analyzeImage(ImageProxy imageProxy) {
+        if (recognized == true) {
+            timeoutHandler.removeCallbacks(timeoutRunnable);
             imageProxy.close();
             return;
         }
 
-        try
-        {
+        try {
             Image image = imageProxy.getImage();
 
             Image.Plane[] planes = image.getPlanes();
@@ -202,10 +208,10 @@ public class Attendance extends AppCompatActivity {
             uBuffer.get(nv21, ySize + vSize, uSize);
 
             int cameraMode = 7;
-            if(SettingsActivity.getCameraLens(context) == CameraSelector.LENS_FACING_BACK) {
+            if (SettingsActivity.getCameraLens(context) == CameraSelector.LENS_FACING_BACK) {
                 cameraMode = 6;
             }
-            Bitmap bitmap  = FaceSDK.yuv2Bitmap(nv21, image.getWidth(), image.getHeight(), cameraMode);
+            Bitmap bitmap = FaceSDK.yuv2Bitmap(nv21, image.getWidth(), image.getHeight(), cameraMode);
 
             FaceDetectionParam faceDetectionParam = new FaceDetectionParam();
             faceDetectionParam.check_liveness = true;
@@ -220,25 +226,26 @@ public class Attendance extends AppCompatActivity {
                 }
             });
 
-            if(faceBoxes.size() > 0) {
+            if (faceBoxes.size() > 0) {
                 FaceBox faceBox = faceBoxes.get(0);
-                if(faceBox.liveness > SettingsActivity.getLivenessThreshold(context)) {
+                if (faceBox.liveness > SettingsActivity.getLivenessThreshold(context)) {
                     byte[] templates = FaceSDK.templateExtraction(bitmap, faceBox);
 
-                    float maxSimiarlity = 0;
-                    Person maximiarlityPerson = null;
-                    for(Person person : DBManager.personList) {
+                    float maxSimilarity = 0;
+                    Person maxSimilarityPerson = null;
+                    for (Person person : DBManager.personList) {
                         float similarity = FaceSDK.similarityCalculation(templates, person.templates);
-                        if(similarity > maxSimiarlity) {
-                            maxSimiarlity = similarity;
-                            maximiarlityPerson = person;
+                        if (similarity > maxSimilarity) {
+                            maxSimilarity = similarity;
+                            maxSimilarityPerson = person;
                         }
                     }
 
-                    if(maxSimiarlity > SettingsActivity.getIdentifyThreshold(this)) {
+                    if (maxSimilarity > SettingsActivity.getIdentifyThreshold(this)) {
                         recognized = true;
-                        final Person identifiedPerson = maximiarlityPerson;
-                        final float identifiedSimilarity = maxSimiarlity;
+                        timeoutHandler.removeCallbacks(timeoutRunnable);
+                        final Person identifiedPerson = maxSimilarityPerson;
+                        final float identifiedSimilarity = maxSimilarity;
 
                         runOnUiThread(new Runnable() {
                             @Override
@@ -263,13 +270,9 @@ public class Attendance extends AppCompatActivity {
                     }
                 }
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally
-        {
+        } finally {
             imageProxy.close();
         }
     }
