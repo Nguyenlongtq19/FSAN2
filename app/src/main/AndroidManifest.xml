@@ -16,6 +16,9 @@
         android:theme="@style/Theme.FaceAttribute"
         tools:targetApi="31">
         <activity
+            android:name=".AddMemberActivity"
+            android:exported="false" />
+        <activity
             android:name=".AttributeActivity"
             android:exported="false" />
         <activity
@@ -48,7 +51,7 @@
         <activity android:name=".Login" />
         <activity android:name=".Sent" />
         <activity android:name=".UnLogin" />
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".MainActivity2"
             android:exported="true"

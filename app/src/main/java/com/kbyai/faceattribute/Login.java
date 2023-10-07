@@ -103,6 +103,13 @@ public class Login extends AppCompatActivity {
             });
         }
     }
+    public void onBackPressed() {
+        // Chuyển người dùng về Activity chính
+        Intent intent = new Intent(Login.this, MainActivity2.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+        finish(); // Kết thúc activity hiện tại
+    }
 
     @Override
     public void onResume() {
@@ -133,8 +140,7 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    private void setUpCamera()
-    {
+    private void setUpCamera() {
         ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(Login.this);
         cameraProviderFuture.addListener(() -> {
 
@@ -152,8 +158,7 @@ public class Login extends AppCompatActivity {
     }
 
     @SuppressLint({"RestrictedApi", "UnsafeExperimentalUsageError"})
-    private void bindCameraUseCases()
-    {
+    private void bindCameraUseCases() {
         int rotation = viewFinder.getDisplay().getRotation();
 
         cameraSelector = new CameraSelector.Builder().requireLensFacing(SettingsActivity.getCameraLens(this)).build();
@@ -184,8 +189,7 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    class FaceAnalyzer implements ImageAnalysis.Analyzer
-    {
+    class FaceAnalyzer implements ImageAnalysis.Analyzer {
         @SuppressLint("UnsafeExperimentalUsageError")
         @Override
         public void analyze(@NonNull ImageProxy imageProxy)
@@ -195,8 +199,7 @@ public class Login extends AppCompatActivity {
     }
 
     @SuppressLint("UnsafeExperimentalUsageError")
-    private void analyzeImage(ImageProxy imageProxy)
-    {
+    private void analyzeImage(ImageProxy imageProxy) {
         if(recognized == true) {
             imageProxy.close();
             return;

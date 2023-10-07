@@ -59,6 +59,28 @@ public class UnLogin extends AppCompatActivity {
                 showToast("Đăng nhập bằng máy tính để lấy lại mật khẩu hoặc liên hệ nhà phát triển");
             }
         });
+        pressBtnHome();
+    }
+
+    private void pressBtnHome() {
+        Button btnHome = (Button) findViewById(R.id.btnHome);
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UnLogin.this, MainActivity2.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish(); // Kết thúc activity hiện tại
+            }
+        });
+    }
+
+    public void onBackPressed() {
+        // Chuyển người dùng về Activity chính
+        Intent intent = new Intent(UnLogin.this, MainActivity2.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+        finish(); // Kết thúc activity hiện tại
     }
 
     private void signIn() {
@@ -94,6 +116,7 @@ public class UnLogin extends AppCompatActivity {
                     }
                 });
     }
+
     private void startCountdownTimer() {
         countDownTimer = new CountDownTimer(60000, 1000) {
             @Override

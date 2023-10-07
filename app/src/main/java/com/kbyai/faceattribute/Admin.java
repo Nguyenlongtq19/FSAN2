@@ -14,7 +14,22 @@ public class Admin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
         pressBtnHome();
+        addMember();
         
+    }
+
+    private void addMember() {
+        Button addMemberButton = (Button) findViewById(R.id.addMemberButton);
+        addMemberButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Admin.this, CaptureActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.putExtra("type", "member");
+                startActivity(intent);
+                finish(); // Kết thúc activity hiện tại
+            }
+        });
     }
 
     private void pressBtnHome() {

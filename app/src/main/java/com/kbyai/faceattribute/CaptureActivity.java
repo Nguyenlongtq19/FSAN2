@@ -122,6 +122,8 @@ public class CaptureActivity extends AppCompatActivity implements CaptureView.Vi
 
                 dbManager.insertPerson("Person" + random, faceImage, templates);
                 Toast.makeText(context, getString(R.string.person_enrolled), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(CaptureActivity.this, AddMember.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -135,7 +137,6 @@ public class CaptureActivity extends AppCompatActivity implements CaptureView.Vi
     @Override
     public void onPause() {
         super.onPause();
-
         captureView.setFaceBoxes(null);
     }
 
@@ -155,8 +156,7 @@ public class CaptureActivity extends AppCompatActivity implements CaptureView.Vi
         }
     }
 
-    private void setUpCamera()
-    {
+    private void setUpCamera() {
         ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(CaptureActivity.this);
         cameraProviderFuture.addListener(() -> {
 
@@ -174,8 +174,7 @@ public class CaptureActivity extends AppCompatActivity implements CaptureView.Vi
     }
 
     @SuppressLint({"RestrictedApi", "UnsafeExperimentalUsageError"})
-    private void bindCameraUseCases()
-    {
+    private void bindCameraUseCases() {
         int rotation = viewFinder.getDisplay().getRotation();
 
         cameraSelector = new CameraSelector.Builder().requireLensFacing(SettingsActivity.getCameraLens(this)).build();
@@ -242,8 +241,7 @@ public class CaptureActivity extends AppCompatActivity implements CaptureView.Vi
         lytCaptureResult.setVisibility(View.VISIBLE);
     }
 
-    class FaceAnalyzer implements ImageAnalysis.Analyzer
-    {
+    class FaceAnalyzer implements ImageAnalysis.Analyzer {
         @SuppressLint("UnsafeExperimentalUsageError")
         @Override
         public void analyze(@NonNull ImageProxy imageProxy)
@@ -253,8 +251,7 @@ public class CaptureActivity extends AppCompatActivity implements CaptureView.Vi
     }
 
     @SuppressLint("UnsafeExperimentalUsageError")
-    private void analyzeImage(ImageProxy imageProxy)
-    {
+    private void analyzeImage(ImageProxy imageProxy) {
         if(captureView.viewMode == CaptureView.VIEW_MODE.NO_FACE_PREPARE) {
             imageProxy.close();
             return;

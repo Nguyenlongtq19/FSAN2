@@ -102,10 +102,16 @@ public class Attendance extends AppCompatActivity {
         }
     }
 
+    public void onBackPressed() {
+        // Chuyển người dùng về Activity chính
+        Intent intent = new Intent(Attendance.this, MainActivity2.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+        finish(); // Kết thúc activity hiện tại
+    }
     @Override
     public void onResume() {
         super.onResume();
-
         recognized = false;
     }
 
