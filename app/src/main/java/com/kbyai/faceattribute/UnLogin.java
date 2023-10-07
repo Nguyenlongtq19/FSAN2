@@ -66,7 +66,7 @@ public class UnLogin extends AppCompatActivity {
         String password = passwordEditText.getText().toString();
 
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-            errorTextView.setText("Vui lòng nhập email và mật khẩu.");
+            showToast("Vui lòng nhập email và mật khẩu.");
             return;
         }
 
@@ -89,7 +89,7 @@ public class UnLogin extends AppCompatActivity {
                             loginLocked = true;
                             startCountdownTimer();
                         } else {
-                            errorTextView.setText("Đăng nhập thất bại. Vui lòng thử lại.");
+                            showToast("Đăng nhập thất bại. Vui lòng thử lại.");
                         }
                     }
                 });
@@ -99,7 +99,7 @@ public class UnLogin extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 // Cập nhật TextView để hiển thị đếm ngược
-                errorTextView.setText("Đăng nhập sai quá 5 lần. Vui lòng thử lại sau " +
+                errorTextView.setText("Đăng nhập sai quá 5 lần. \nVui lòng thử lại sau " +
                         millisUntilFinished / 1000 + " giây.");
             }
 

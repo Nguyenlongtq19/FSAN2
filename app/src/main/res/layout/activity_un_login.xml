@@ -45,7 +45,7 @@
             android:id="@+id/passwordEditText"
             android:layout_width="290sp"
             android:layout_height="48dp"
-            android:hint="Số điện thoại"
+            android:hint="Mật khẩu"
             android:inputType="textPassword"
             android:maxLength="25"
             android:background="@drawable/edittext_border"

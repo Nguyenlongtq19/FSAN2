@@ -72,8 +72,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:textSize="15dp"
         android:layout_marginBottom="15sp"
-        android:text="Liên hệ nhà phát triển"
-        android:textColor="#1760BC" />
+        android:textStyle="bold"
+        android:text="\nLớp: Chưa cập nhập\nGVCN: Chưa đăng nhập"
+        android:textColor="#075AFF" />
 
 </RelativeLayout>
