@@ -7,13 +7,14 @@
     tools:context=".Admin"
     android:background="@drawable/bg2">
     <TextView
-        android:id="@+id/welcome"
+        android:id="@+id/welcomeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CHÀO MỪNG QUẢN TRỊ VIÊN!"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20sp"/>
+        android:layout_marginTop="25dp"
+        android:textColor="@color/bgRed"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -23,25 +24,28 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/addMemberButton"
             android:layout_width="230sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30sp"
             android:layout_marginBottom="25sp"
             android:backgroundTint="@color/bgRed"
             android:padding="20sp"
-            android:text="THÊM MỚI THÀNH VIÊN"
+            android:text="THÊM MỚI HỌC SINH"
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/listMemberButton"
             android:layout_width="230sp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25sp"
             android:backgroundTint="@color/bgGreen"
             android:padding="20sp"
-            android:text="DANH SÁCH THÀNH VIÊN"
+            android:text="DANH SÁCH HỌC SINH"
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/addAdminButton"
             android:layout_width="230sp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25sp"
@@ -51,6 +55,7 @@
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/listAdminButton"
             android:layout_width="230sp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15sp"

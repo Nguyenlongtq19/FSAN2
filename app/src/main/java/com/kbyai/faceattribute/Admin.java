@@ -8,13 +8,17 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Admin extends AppCompatActivity {
-    private Button btnHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
-        btnHome = (Button) findViewById(R.id.btnHome);
+        pressBtnHome();
+        
+    }
+
+    private void pressBtnHome() {
+        Button btnHome = (Button) findViewById(R.id.btnHome);
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -24,8 +28,8 @@ public class Admin extends AppCompatActivity {
                 finish(); // Kết thúc activity hiện tại
             }
         });
-
     }
+
     public void onBackPressed() {
         // Chuyển người dùng về Activity chính
         Intent intent = new Intent(Admin.this, MainActivity2.class);
