@@ -106,4 +106,169 @@ class SettingsActivity : AppCompatActivity() {
 
         dbManager = DBManager(this)
     }
+
+    class SettingsFragment : PreferenceFragmentCompat() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.root_preferences, rootKey)
+
+            val cameraLensPref = findPreference<ListPreference>("camera_lens")
+            val livenessThresholdPref = findPreference<EditTextPreference>("liveness_threshold")
+            val livenessLevelPref = findPreference<ListPreference>("liveness_level")
+            val identifyThresholdPref = findPreference<EditTextPreference>("identify_threshold")
+            val yawThresholdPref = findPreference<EditTextPreference>("yaw_threshold")
+            val rollThresholdPref = findPreference<EditTextPreference>("roll_threshold")
+            val pitchThresholdPref = findPreference<EditTextPreference>("pitch_threshold")
+            val occlusionThresholdPref = findPreference<EditTextPreference>("occlusion_threshold")
+            val eyeCloseThresholdPref = findPreference<EditTextPreference>("eyeclose_threshold")
+            val mouthOpenThresholdPref = findPreference<EditTextPreference>("mouthopen_threshold")
+            val buttonRestorePref = findPreference<Preference>("restore_default_settings")
+
+            livenessThresholdPref?.setOnPreferenceChangeListener{ preference, newValue ->
+                val stringPref = newValue as String
+                try {
+                    if(stringPref.toFloat() < 0.0f || stringPref.toFloat() > 1.0f) {
+                        Toast.makeText(context, getString(R.string.invalid_value), Toast.LENGTH_SHORT).show()
+                        false
+                    } else {
+                        true
+                    }
+                } catch (e:Exception) {
+                    Toast.makeText(context, getString(R.string.invalid_value), Toast.LENGTH_SHORT).show()
+                    false
+                }
+            }
+
+            identifyThresholdPref?.setOnPreferenceChangeListener{ preference, newValue ->
+                val stringPref = newValue as String
+                try {
+                    if(stringPref.toFloat() < 0.0f || stringPref.toFloat() > 1.0f) {
+                        Toast.makeText(context, getString(R.string.invalid_value), Toast.LENGTH_SHORT).show()
+                        false
+                    } else {
+                        true
+                    }
+                } catch (e:Exception) {
+                    Toast.makeText(context, getString(R.string.invalid_value), Toast.LENGTH_SHORT).show()
+                    false
+                }
+            }
+
+            yawThresholdPref?.setOnPreferenceChangeListener{ preference, newValue ->
+                val stringPref = newValue as String
+                try {
+                    if(stringPref.toFloat() < 0.0f || stringPref.toFloat() > 30.0f) {
+                        Toast.makeText(context, getString(R.string.invalid_value), Toast.LENGTH_SHORT).show()
+                        false
+                    } else {
+                        true
+                    }
+                } catch (e:Exception) {
+                    Toast.makeText(context, getString(R.string.invalid_value), Toast.LENGTH_SHORT).show()
+                    false
+                }
+            }
+
+            rollThresholdPref?.setOnPreferenceChangeListener{ preference, newValue ->
+                val stringPref = newValue as String
+                try {
+                    if(stringPref.toFloat() < 0.0f || stringPref.toFloat() > 30.0f) {
+                        Toast.makeText(context, getString(R.string.invalid_value), Toast.LENGTH_SHORT).show()
+                        false
+                    } else {
+                        true
+                    }
+                } catch (e:Exception) {
+                    Toast.makeText(context, getString(R.string.invalid_value), Toast.LENGTH_SHORT).show()
+                    false
+                }
+            }
+
+            pitchThresholdPref?.setOnPreferenceChangeListener{ preference, newValue ->
+                val stringPref = newValue as String
+                try {
+                    if(stringPref.toFloat() < 0.0f || stringPref.toFloat() > 30.0f) {
+                        Toast.makeText(context, getString(R.string.invalid_value), Toast.LENGTH_SHORT).show()
+                        false
+                    } else {
+                        true
+                    }
+                } catch (e:Exception) {
+                    Toast.makeText(context, getString(R.string.invalid_value), Toast.LENGTH_SHORT).show()
+                    false
+                }
+            }
+
+            occlusionThresholdPref?.setOnPreferenceChangeListener{ preference, newValue ->
+                val stringPref = newValue as String
+                try {
+                    if(stringPref.toFloat() < 0.0f || stringPref.toFloat() > 1.0f) {
+                        Toast.makeText(context, getString(R.string.invalid_value), Toast.LENGTH_SHORT).show()
+                        false
+                    } else {
+                        true
+                    }
+                } catch (e:Exception) {
+                    Toast.makeText(context, getString(R.string.invalid_value), Toast.LENGTH_SHORT).show()
+                    false
+                }
+            }
+
+            eyeCloseThresholdPref?.setOnPreferenceChangeListener{ preference, newValue ->
+                val stringPref = newValue as String
+                try {
+                    if(stringPref.toFloat() < 0.0f || stringPref.toFloat() > 1.0f) {
+                        Toast.makeText(context, getString(R.string.invalid_value), Toast.LENGTH_SHORT).show()
+                        false
+                    } else {
+                        true
+                    }
+                } catch (e:Exception) {
+                    Toast.makeText(context, getString(R.string.invalid_value), Toast.LENGTH_SHORT).show()
+                    false
+                }
+            }
+
+            mouthOpenThresholdPref?.setOnPreferenceChangeListener{ preference, newValue ->
+                val stringPref = newValue as String
+                try {
+                    if(stringPref.toFloat() < 0.0f || stringPref.toFloat() > 1.0f) {
+                        Toast.makeText(context, getString(R.string.invalid_value), Toast.LENGTH_SHORT).show()
+                        false
+                    } else {
+                        true
+                    }
+                } catch (e:Exception) {
+                    Toast.makeText(context, getString(R.string.invalid_value), Toast.LENGTH_SHORT).show()
+                    false
+                }
+            }
+
+            buttonRestorePref?.setOnPreferenceClickListener {
+
+                cameraLensPref?.value = SettingsActivity.DEFAULT_CAMERA_LENS
+                livenessLevelPref?.value = SettingsActivity.DEFAULT_LIVENESS_LEVEL
+                livenessThresholdPref?.text = SettingsActivity.DEFAULT_LIVENESS_THRESHOLD
+                identifyThresholdPref?.text = SettingsActivity.DEFAULT_IDENTIFY_THRESHOLD
+                yawThresholdPref?.text = SettingsActivity.DEFAULT_YAW_THRESHOLD
+                rollThresholdPref?.text = SettingsActivity.DEFAULT_ROLL_THRESHOLD
+                pitchThresholdPref?.text = SettingsActivity.DEFAULT_PITCH_THRESHOLD
+                occlusionThresholdPref?.text = SettingsActivity.DEFAULT_OCCLUSION_THRESHOLD
+                eyeCloseThresholdPref?.text = SettingsActivity.DEFAULT_EYECLOSE_THRESHOLD
+                mouthOpenThresholdPref?.text = SettingsActivity.DEFAULT_MOUTHOPEN_THRESHOLD
+
+
+                Toast.makeText(activity, getString(R.string.restored_default_settings), Toast.LENGTH_LONG).show()
+                true
+            }
+
+            val buttonClearPref = findPreference<Preference>("clear_all_person")
+            buttonClearPref?.setOnPreferenceClickListener {
+                val settingsActivity = activity as SettingsActivity
+                settingsActivity.dbManager.clearDB()
+
+                Toast.makeText(activity, getString(R.string.cleared_all_person), Toast.LENGTH_LONG).show()
+                true
+            }
+        }
+    }
 }
