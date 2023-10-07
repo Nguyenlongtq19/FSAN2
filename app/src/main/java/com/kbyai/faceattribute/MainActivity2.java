@@ -75,6 +75,8 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity2.this, Attendance.class);
                 startActivity(intent);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                finish();
             }
         });
 
@@ -85,6 +87,8 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity2.this, Login.class);
                 startActivity(intent);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                finish();
             }
         });
 
