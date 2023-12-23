@@ -65,44 +65,50 @@
 
         </View>
 
-        <TextView
-            android:id="@+id/txtLiveness"
+        <EditText
+            android:id="@+id/idEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Liveness score: 0.83"
+            android:hint="MSHS"
+            android:layout_marginLeft="40dp"
             android:textSize="18dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="24dp"
+            android:inputType="text"
+            android:maxLength="25"
+            android:padding="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/viewCaptureDumpy"
             >
-        </TextView>
+        </EditText>
 
-        <TextView
-            android:id="@+id/txtQuality"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Liveness score: 0.83"
-            android:textSize="18dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="24dp"
+        <EditText
+            android:id="@+id/nameEditText"
+            android:layout_width="290sp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/edittext_border"
+            android:hint="Họ và tên"
+            android:inputType="text"
+            android:maxLength="25"
+            android:padding="15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtLiveness"
+            app:layout_constraintTop_toBottomOf="@+id/idEditText"
             >
-        </TextView>
+        </EditText>
 
-        <TextView
-            android:id="@+id/txtLuminance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Liveness score: 0.83"
-            android:textSize="18dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="24dp"
+        <EditText
+            android:id="@+id/phoneEditText"
+            android:layout_width="290sp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/edittext_border"
+            android:hint="SĐT phụ huynh"
+            android:inputType="phone"
+            android:maxLength="25"
+            android:padding="15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtQuality"
+            app:layout_constraintTop_toBottomOf="@+id/nameEditText"
             >
-        </TextView>
+        </EditText>
 
         <Button
             android:id="@+id/buttonEnroll"
@@ -110,12 +116,12 @@
             android:layout_width="150dp"
             android:layout_height="48dp"
             android:layout_weight="0.5"
-            android:text="Thêm"
+            android:text="Thêm mới"
             android:layout_marginTop="32dp"
             app:icon="@drawable/ic_register"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtLuminance"
+            app:layout_constraintTop_toBottomOf="@+id/phoneEditText"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,8 +13,17 @@
         android:text="CHÀO MỪNG QUẢN TRỊ VIÊN!"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:textColor="@color/bgRed"/>
+        android:layout_marginTop="35dp"
+        android:textColor="@color/bgRed"
+        android:textSize="25sp"/>
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="105dp"
+        android:layout_marginLeft="10sp"
+        android:backgroundTint="@color/bgRed"
+        android:text="Cài đặt"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -25,44 +34,23 @@
 
         <Button
             android:id="@+id/addMemberButton"
-            android:layout_width="230sp"
+            android:layout_width="190sp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30sp"
-            android:layout_marginBottom="25sp"
-            android:backgroundTint="@color/bgRed"
+            android:layout_marginBottom="50dp"
+            android:backgroundTint="@color/bgGreen"
             android:padding="20sp"
             android:text="THÊM MỚI HỌC SINH"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/listMemberButton"
-            android:layout_width="230sp"
+            android:id="@+id/listPersonButton"
+            android:layout_width="190sp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="25sp"
             android:backgroundTint="@color/bgGreen"
             android:padding="20sp"
             android:text="DANH SÁCH HỌC SINH"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/addAdminButton"
-            android:layout_width="230sp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="25sp"
-            android:backgroundTint="@color/bgRed"
-            android:padding="20sp"
-            android:text="THÊM MỚI QUẢN TRỊ VIÊN"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/listAdminButton"
-            android:layout_width="230sp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15sp"
-            android:backgroundTint="@color/bgGreen"
-            android:padding="20sp"
-            android:text="DANH SÁCH QUẢN TRỊ VIÊN"
-            android:textStyle="bold" />
     </LinearLayout>
     <Button
         android:id="@+id/btnHome"
@@ -74,6 +62,5 @@
         android:layout_marginBottom="10sp"
         android:layout_marginRight="10sp"
         android:backgroundTint="@color/bgGreen"/>
-
 
 </RelativeLayout>

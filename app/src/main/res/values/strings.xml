@@ -25,7 +25,7 @@
 
     <string name="multiple_face_detected">Multiple face detected!</string>
     <string name="no_face_detected">No face detected!</string>
-    <string name="person_enrolled">Person enrolled!</string>
+    <string name="person_enrolled">Đăng ký thành công</string>
     <string name="liveness_check_failed">Liveness check failed!</string>
     <string name="restored_default_settings">Restored default settings</string>
     <string name="cleared_all_person">Cleared all person</string>

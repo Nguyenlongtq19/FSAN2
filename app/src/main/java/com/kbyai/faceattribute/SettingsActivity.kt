@@ -12,7 +12,7 @@ class SettingsActivity : AppCompatActivity() {
 
     companion object {
         const val DEFAULT_CAMERA_LENS = "front"
-        const val DEFAULT_LIVENESS_THRESHOLD = "0.5"
+        const val DEFAULT_LIVENESS_THRESHOLD = "0.7"
         const val DEFAULT_IDENTIFY_THRESHOLD = "0.6"
         const val DEFAULT_LIVENESS_LEVEL = "0"
         const val DEFAULT_YAW_THRESHOLD = "10.0"
@@ -97,9 +97,11 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_settings)
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
+                .replace(R.id.settings, SettingsFragment())
                 .commit()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -271,4 +273,6 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
     }
+
+
 }

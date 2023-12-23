@@ -1,108 +1,80 @@
 package com.kbyai.faceattribute;
 
-
-import static androidx.camera.core.ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST;
-
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
-import android.util.Size;
+import android.os.CountDownTimer;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.Camera;
-import androidx.camera.core.CameraSelector;
-import androidx.camera.core.ImageAnalysis;
-import androidx.camera.core.ImageProxy;
-import androidx.camera.core.Preview;
-import androidx.camera.lifecycle.ProcessCameraProvider;
-import androidx.camera.view.PreviewView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import com.google.common.util.concurrent.ListenableFuture;
-import com.kbyai.faceattribute.ResultActivity;
-import com.kbyai.faceattribute.SettingsActivity;
-import com.kbyai.facesdk.FaceBox;
-import com.kbyai.facesdk.FaceDetectionParam;
-import com.kbyai.facesdk.FaceSDK;
-
-import java.nio.ByteBuffer;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
-    static String TAG = CameraActivity.class.getSimpleName();
-    static int PREVIEW_WIDTH = 720;
-    static int PREVIEW_HEIGHT = 1280;
+    private EditText emailEditText;
+    private EditText passwordEditText;
+    private Button loginButton;
+    private TextView forgotTextView;
+    private TextView errorTextView;
 
-    private ExecutorService cameraExecutorService;
-    private PreviewView viewFinder;
-    private Preview preview        = null;
-    private ImageAnalysis imageAnalyzer  = null;
-    private Camera camera         = null;
-    private CameraSelector        cameraSelector = null;
-    private ProcessCameraProvider cameraProvider = null;
+    private FirebaseAuth auth;
 
-    private FaceView faceView;
-
-    private Context context;
-
-    private Boolean recognized = false;
-
-    private static final int AUTO_LOGOUT_DELAY = 5000; // 5 seconds
-    private Handler autoLogoutHandler;
-    private Runnable autoLogoutRunnable;
+    private int loginAttempts = 0;
+    private boolean loginLocked = false;
+    private CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_camera);
+        setContentView(R.layout.activity_login);
 
-        context = this;
+        emailEditText = findViewById(R.id.emailEditText);
+        passwordEditText = findViewById(R.id.passwordEditText);
+        loginButton = findViewById(R.id.loginButton);
+        forgotTextView = findViewById(R.id.forgotTextView);
+        errorTextView = findViewById(R.id.errorTextView);
 
-        viewFinder = findViewById(R.id.preview);
-        faceView = findViewById(R.id.faceView);
-        cameraExecutorService = Executors.newFixedThreadPool(1);
+        auth = FirebaseAuth.getInstance();
 
-        // Initialize auto-logout handler and runnable
-        autoLogoutHandler = new Handler(Looper.getMainLooper());
-        autoLogoutRunnable = new Runnable() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                // Auto logout after 10 seconds of inactivity
-                Intent intent = new Intent(Login.this, UnLogin.class);
-                startActivity(intent);
-                finish(); // Finish the current activity
+            public void onClick(View v) {
+                if (!loginLocked) {
+                    signIn();
+                } else {
+                    showToast("Tài khoản đã bị khóa đăng nhập. Vui lòng thử lại sau.");
+                }
             }
-        };
-        autoLogoutHandler.removeCallbacks(autoLogoutRunnable);
-        startAutoLogoutTimer();
+        });
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_DENIED) {
-
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
-        } else {
-            viewFinder.post(() ->
-            {
-                setUpCamera();
-            });
-        }
+        forgotTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showToast("Đăng nhập bằng máy tính để lấy lại mật khẩu hoặc liên hệ nhà phát triển");
+            }
+        });
+        pressBtnHome();
     }
+
+    private void pressBtnHome() {
+        Button btnHome = (Button) findViewById(R.id.btnHome);
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this, MainActivity2.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish(); // Kết thúc activity hiện tại
+            }
+        });
+    }
+
     public void onBackPressed() {
         // Chuyển người dùng về Activity chính
         Intent intent = new Intent(Login.this, MainActivity2.class);
@@ -111,196 +83,75 @@ public class Login extends AppCompatActivity {
         finish(); // Kết thúc activity hiện tại
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        recognized = false;
-    }
+    private void signIn() {
+        String email = emailEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        faceView.setFaceBoxes(null);
-        finish();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if(requestCode == 1) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                    == PackageManager.PERMISSION_GRANTED) {
-
-                viewFinder.post(() ->
-                {
-                    setUpCamera();
-                });
-            }
-        }
-    }
-
-    private void setUpCamera() {
-        ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(Login.this);
-        cameraProviderFuture.addListener(() -> {
-
-            // CameraProvider
-            try {
-                cameraProvider = cameraProviderFuture.get();
-            } catch (ExecutionException e) {
-            } catch (InterruptedException e) {
-            }
-
-            // Build and bind the camera use cases
-            bindCameraUseCases();
-
-        }, ContextCompat.getMainExecutor(Login.this));
-    }
-
-    @SuppressLint({"RestrictedApi", "UnsafeExperimentalUsageError"})
-    private void bindCameraUseCases() {
-        int rotation = viewFinder.getDisplay().getRotation();
-
-        cameraSelector = new CameraSelector.Builder().requireLensFacing(SettingsActivity.getCameraLens(this)).build();
-
-        preview = new Preview.Builder()
-                .setTargetResolution(new Size(PREVIEW_WIDTH, PREVIEW_HEIGHT))
-                .setTargetRotation(rotation)
-                .build();
-
-        imageAnalyzer = new ImageAnalysis.Builder()
-                .setBackpressureStrategy(STRATEGY_KEEP_ONLY_LATEST)
-                .setTargetResolution(new Size(PREVIEW_WIDTH, PREVIEW_HEIGHT))
-                // Set initial target rotation, we will have to call this again if rotation changes
-                // during the lifecycle of this use case
-                .setTargetRotation(rotation)
-                .build();
-
-        imageAnalyzer.setAnalyzer(cameraExecutorService, new FaceAnalyzer());
-
-        cameraProvider.unbindAll();
-
-        try {
-            camera = cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview, imageAnalyzer);
-
-            preview.setSurfaceProvider(viewFinder.getSurfaceProvider());
-        } catch (Exception exc) {
-        }
-    }
-
-    class FaceAnalyzer implements ImageAnalysis.Analyzer {
-        @SuppressLint("UnsafeExperimentalUsageError")
-        @Override
-        public void analyze(@NonNull ImageProxy imageProxy)
-        {
-            analyzeImage(imageProxy);
-        }
-    }
-
-    @SuppressLint("UnsafeExperimentalUsageError")
-    private void analyzeImage(ImageProxy imageProxy) {
-        if(recognized == true) {
-            imageProxy.close();
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            showToast("Vui lòng nhập email và mật khẩu.");
             return;
         }
 
-        try
-        {
-            Image image = imageProxy.getImage();
+        auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Đăng nhập thành công, thực hiện hành động sau đăng nhập
+                        FirebaseUser user = auth.getCurrentUser();
+                        if (user != null) {
+                            // Đăng nhập thành công, điều hướng đến hoạt động chính hoặc trang khác
+                            Intent intent = new Intent(Login.this, Admin.class);
+                            startActivity(intent);
+                            finish(); // Đóng hoạt động đăng nhập nếu cần
 
-            Image.Plane[] planes = image.getPlanes();
-            ByteBuffer yBuffer = planes[0].getBuffer();
-            ByteBuffer uBuffer = planes[1].getBuffer();
-            ByteBuffer vBuffer = planes[2].getBuffer();
-
-            int ySize = yBuffer.remaining();
-            int uSize = uBuffer.remaining();
-            int vSize = vBuffer.remaining();
-
-            byte[] nv21 = new byte[ySize + uSize + vSize];
-            yBuffer.get(nv21, 0, ySize);
-            vBuffer.get(nv21, ySize, vSize);
-            uBuffer.get(nv21, ySize + vSize, uSize);
-
-            int cameraMode = 7;
-            if(SettingsActivity.getCameraLens(context) == CameraSelector.LENS_FACING_BACK) {
-                cameraMode = 6;
-            }
-            Bitmap bitmap  = FaceSDK.yuv2Bitmap(nv21, image.getWidth(), image.getHeight(), cameraMode);
-
-            FaceDetectionParam faceDetectionParam = new FaceDetectionParam();
-            faceDetectionParam.check_liveness = true;
-            faceDetectionParam.check_liveness_level = SettingsActivity.getLivenessLevel(this);
-            List<FaceBox> faceBoxes = FaceSDK.faceDetection(bitmap, faceDetectionParam);
-
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    faceView.setFrameSize(new Size(bitmap.getWidth(), bitmap.getHeight()));
-                    faceView.setFaceBoxes(faceBoxes);
-                }
-            });
-
-            if(faceBoxes.size() > 0) {
-                FaceBox faceBox = faceBoxes.get(0);
-                if(faceBox.liveness > SettingsActivity.getLivenessThreshold(context)) {
-                    byte[] templates = FaceSDK.templateExtraction(bitmap, faceBox);
-
-                    float maxSimiarlity = 0;
-                    Person maximiarlityPerson = null;
-                    for(Person person : DBManager.personList) {
-                        float similarity = FaceSDK.similarityCalculation(templates, person.templates);
-                        if(similarity > maxSimiarlity) {
-                            maxSimiarlity = similarity;
-                            maximiarlityPerson = person;
+                        }
+                    } else {
+                        // Đăng nhập thất bại
+                        loginAttempts++;
+                        if (loginAttempts >= 5) {
+                            loginLocked = true;
+                            startCountdownTimer();
+                        } else {
+                            showToast("Đăng nhập thất bại. Vui lòng thử lại.");
                         }
                     }
+                });
+    }
 
-                    if(maxSimiarlity > SettingsActivity.getIdentifyThreshold(this)) {
-                        recognized = true;
-                        final Person identifiedPerson = maximiarlityPerson;
-                        final float identifiedSimilarity = maxSimiarlity;
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Bitmap faceImage = Utils.cropFace(bitmap, faceBox);
-
-                                Intent intent = new Intent(context, ResultActivity.class);
-                                intent.putExtra("identified_face", faceImage);
-                                intent.putExtra("enrolled_face", identifiedPerson.face);
-                                intent.putExtra("identified_name", identifiedPerson.name);
-                                intent.putExtra("similarity", identifiedSimilarity);
-                                intent.putExtra("liveness", faceBox.liveness);
-                                intent.putExtra("yaw", faceBox.yaw);
-                                intent.putExtra("roll", faceBox.roll);
-                                intent.putExtra("pitch", faceBox.pitch);
-                                intent.putExtra("face_quality", faceBox.face_quality);
-                                intent.putExtra("face_luminance", faceBox.face_luminance);
-
-                                startActivity(intent);
-                            }
-                        });
-                    }
-                }
+    private void startCountdownTimer() {
+        countDownTimer = new CountDownTimer(60000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                // Cập nhật TextView để hiển thị đếm ngược
+                errorTextView.setText("Đăng nhập sai quá 5 lần. \nVui lòng thử lại sau " +
+                        millisUntilFinished / 1000 + " giây.");
             }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        finally
-        {
-            imageProxy.close();
-        }
+
+            @Override
+            public void onFinish() {
+                // Khi đếm ngược kết thúc, mở khóa lại đăng nhập
+                loginAttempts = 0;
+                loginLocked = false;
+                errorTextView.setText("");
+            }
+        }.start();
     }
-    private void startAutoLogoutTimer() {
-        autoLogoutHandler.postDelayed(autoLogoutRunnable, AUTO_LOGOUT_DELAY);
-    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Remove any pending auto-logout callbacks to avoid leaks
-        autoLogoutHandler.removeCallbacks(autoLogoutRunnable);
+        // Hủy bỏ đếm ngược khi hoạt động bị hủy
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

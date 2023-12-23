@@ -45,7 +45,7 @@ import java.util.concurrent.Executors;
 
 public class Attendance extends AppCompatActivity {
 
-    static String TAG = CameraActivity.class.getSimpleName();
+    static String TAG = Attendance.class.getSimpleName();
     static int PREVIEW_WIDTH = 720;
     static int PREVIEW_HEIGHT = 1280;
 
@@ -81,8 +81,8 @@ public class Attendance extends AppCompatActivity {
         autoLogoutRunnable = new Runnable() {
             @Override
             public void run() {
-                // Auto logout after 10 seconds of inactivity
-                Intent intent = new Intent(Attendance.this, AttendanceUnSuccessful.class);
+                // Auto logout after 05 seconds of inactivity
+                Intent intent = new Intent(Attendance.this, MainActivity2.class);
                 startActivity(intent);
                 finish(); // Finish the current activity
             }
@@ -105,7 +105,6 @@ public class Attendance extends AppCompatActivity {
     public void onBackPressed() {
         // Chuyển người dùng về Activity chính
         Intent intent = new Intent(Attendance.this, MainActivity2.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         finish(); // Kết thúc activity hiện tại
     }
@@ -273,13 +272,8 @@ public class Attendance extends AppCompatActivity {
                                 intent.putExtra("identified_face", faceImage);
                                 intent.putExtra("enrolled_face", identifiedPerson.face);
                                 intent.putExtra("identified_name", identifiedPerson.name);
-                                intent.putExtra("similarity", identifiedSimilarity);
-                                intent.putExtra("liveness", faceBox.liveness);
-                                intent.putExtra("yaw", faceBox.yaw);
-                                intent.putExtra("roll", faceBox.roll);
-                                intent.putExtra("pitch", faceBox.pitch);
-                                intent.putExtra("face_quality", faceBox.face_quality);
-                                intent.putExtra("face_luminance", faceBox.face_luminance);
+                                intent.putExtra("identified_id", identifiedPerson.id);
+                                intent.putExtra("identified_phone", identifiedPerson.phone);
 
                                 startActivity(intent);
                             }

@@ -4,17 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ResultActivity">
+    tools:context=".ResultActivity"
+    android:background="@drawable/bg1">
 
     <TextView
         android:id="@+id/txtTitle"
+        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
-        android:text="Identify Result"
+        android:text="ĐÃ ĐIỂM DANH !"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/bgGreen">
     </TextView>
 
     <LinearLayout
@@ -23,7 +26,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="30dp"
-        app:layout_constraintTop_toBottomOf="@id/txtTitle"
+        app:layout_constraintTop_toBottomOf="@id/phoneText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         >
@@ -55,120 +58,69 @@
         >
 
         <TextView
-            android:text="Enrolled"
+            android:textStyle="bold"
+            android:text="Đăng ký"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textColor="@color/bgGreen"
             >
         </TextView>
 
         <TextView
-            android:text="Identified"
+            android:textStyle="bold"
+            android:text="Điểm danh"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textColor="@color/bgGreen"
             >
         </TextView>
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textPerson"
+        android:textStyle="bold"
+        android:id="@+id/nameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Identified: Person1"
+        android:text="Họ và tên: Person1"
         android:textSize="18dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginLeft="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="32dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lytImagesTitle"
+        app:layout_constraintTop_toBottomOf="@+id/idText"
+        android:textColor="@color/bgGreen"
         >
     </TextView>
 
     <TextView
-        android:id="@+id/textSimilarity"
+        android:textStyle="bold"
+        android:id="@+id/idText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Similarity: 0.83"
+        android:text="MSHS: 00000000"
         android:textSize="18dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="32dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPerson"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitle"
+        android:textColor="@color/bgGreen"
         >
     </TextView>
 
     <TextView
-        android:id="@+id/textLiveness"
+        android:textStyle="bold"
+        android:id="@+id/phoneText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Liveness score: 0.83"
+        android:text="SĐT phụ huynh: 000000000000"
         android:textSize="18dp"
         android:layout_marginTop="16dp"
-        android:layout_marginLeft="24dp"
+        android:layout_marginLeft="32dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textSimilarity"
+        app:layout_constraintTop_toBottomOf="@+id/nameText"
+        android:textColor="@color/bgGreen"
         >
     </TextView>
 
-    <TextView
-        android:id="@+id/textYaw"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textLiveness"
-        >
-    </TextView>
-
-    <TextView
-        android:id="@+id/textRoll"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textYaw"
-        >
-    </TextView>
-
-    <TextView
-        android:id="@+id/textPitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textRoll"
-        >
-    </TextView>
-
-    <TextView
-        android:id="@+id/txtQuality"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Liveness score: 0.83"
-        android:textSize="18dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPitch"
-        >
-    </TextView>
-
-    <TextView
-        android:id="@+id/txtLuminance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Liveness score: 0.83"
-        android:textSize="18dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtQuality"
-        >
-    </TextView>
 </androidx.constraintlayout.widget.ConstraintLayout>

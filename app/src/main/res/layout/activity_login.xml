@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UnLogin"
-    android:background="@drawable/bg">
+    tools:context=".Login"
+    android:background="@drawable/bg1">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,45 +13,46 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="HỆ THỐNG KHÔNG THỂ NHẬN DIỆN!"
+            android:text="ĐĂNG NHẬP"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="45dp"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/white"
             android:gravity="center_horizontal"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ĐĂNG NHẬP MẬT KHẨU"
+            android:text="VAI TRÒ QUẢN TRỊ VIÊN"
             android:textSize="20dp"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/white"
             android:paddingTop="0px"
             android:gravity="center_horizontal"/>
+
         <EditText
             android:id="@+id/emailEditText"
             android:layout_width="290sp"
             android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/edittext_border"
             android:hint="Email"
             android:inputType="textEmailAddress"
-            android:maxLength="25"
-            android:background="@drawable/edittext_border"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="60dp"
-            android:padding="15dp"/>
+            android:padding="15dp" />
+
         <EditText
             android:id="@+id/passwordEditText"
             android:layout_width="290sp"
             android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext_border"
             android:hint="Mật khẩu"
             android:inputType="textPassword"
-            android:maxLength="25"
-            android:background="@drawable/edittext_border"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:padding="15dp"/>
+            android:padding="15dp" />
+
         <TextView
             android:id="@+id/forgotTextView"
             android:layout_width="wrap_content"
@@ -91,16 +92,5 @@
         android:layout_marginBottom="10sp"
         android:layout_marginRight="10sp"
         android:backgroundTint="@color/bgGreen"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:textColor="@color/white"
-        android:layout_marginBottom="60dp"
-        android:text="         Liên hệ nhà phát triển: Dương Tuấn Bình\n
-        Điện thoại: 0985520468                                     \n
-        Email: duongtuanbinh18062007@gmail.com"
-        />
 
 </RelativeLayout>

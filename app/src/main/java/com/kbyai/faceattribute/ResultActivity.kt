@@ -1,8 +1,10 @@
 package com.kbyai.faceattribute
 
+import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.widget.ImageView
 import android.widget.TextView
 
@@ -13,36 +15,20 @@ class ResultActivity : AppCompatActivity() {
 
         val identifyedFace = intent.getParcelableExtra("identified_face") as? Bitmap
         val enrolledFace = intent.getParcelableExtra("enrolled_face") as? Bitmap
+        val identifiedId = intent.getStringExtra("identified_id")
         val identifiedName = intent.getStringExtra("identified_name")
-        val similarity = intent.getFloatExtra("similarity", 0f)
-        val livenessScore = intent.getFloatExtra("liveness", 0f)
-        val yaw = intent.getFloatExtra("yaw", 0f)
-        val roll = intent.getFloatExtra("roll", 0f)
-        val pitch = intent.getFloatExtra("pitch", 0f)
-        val face_quality = intent.getFloatExtra("face_quality", 0f)
-        val face_luminance = intent.getFloatExtra("face_luminance", 0f)
+        val identifiedPhone = intent.getStringExtra("identified_phone")
 
         findViewById<ImageView>(R.id.imageEnrolled).setImageBitmap(enrolledFace)
         findViewById<ImageView>(R.id.imageIdentified).setImageBitmap(identifyedFace)
-        findViewById<TextView>(R.id.textPerson).text = "Identified: " + identifiedName
-        findViewById<TextView>(R.id.textSimilarity).text = "Similarity: " + similarity
-        findViewById<TextView>(R.id.textLiveness).text = "Liveness score: " + livenessScore
-        findViewById<TextView>(R.id.textYaw).text = "Yaw: " + yaw
-        findViewById<TextView>(R.id.textRoll).text = "Roll: " + roll
-        findViewById<TextView>(R.id.textPitch).text = "Pitch: " + pitch
+        findViewById<TextView>(R.id.idText).text = "MSHS: " + identifiedId;
+        findViewById<TextView>(R.id.nameText).text = "Họ và tên: " + identifiedName
+        findViewById<TextView>(R.id.phoneText).text = "SĐT phụ huynh: " + identifiedPhone
 
-        if (face_quality < 0.5f) {
-            val msg = String.format("Quality: Low, score = %.03f", face_quality)
-            findViewById<TextView>(R.id.txtQuality).text = msg
-        } else if(face_quality < 0.75f){
-            val msg = String.format("Quality: Medium, score = %.03f", face_quality)
-            findViewById<TextView>(R.id.txtQuality).text = msg
-        } else {
-            val msg = String.format("Quality: High, score = %.03f", face_quality)
-            findViewById<TextView>(R.id.txtQuality).text = msg
-        }
-
-        var msg = String.format("Luminance: %.03f", face_luminance)
-        findViewById<TextView>(R.id.txtLuminance).text = msg
+        Handler().postDelayed({
+            val intent = Intent(this, MainActivity2::class.java)
+            startActivity(intent)
+            finish()
+        }, 2000)
     }
 }

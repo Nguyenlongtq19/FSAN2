@@ -24,7 +24,7 @@ public class DBManager extends SQLiteOpenHelper {
         // TODO Auto-generated method stub
         db.execSQL(
                 "create table person " +
-                        "(name text, face blob, templates blob)"
+                        "(id text, name text, phone text, face blob, templates blob)"
         );
     }
 
@@ -35,7 +35,7 @@ public class DBManager extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertPerson (String name, Bitmap face, byte[] templates) {
+    public void insertPerson (String id, String name, String phone, Bitmap face, byte[] templates) {
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         face.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
@@ -43,12 +43,14 @@ public class DBManager extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        contentValues.put("id", id);
         contentValues.put("name", name);
+        contentValues.put("phone", phone);
         contentValues.put("face", faceJpg);
         contentValues.put("templates", templates);
         db.insert("person", null, contentValues);
 
-        personList.add(new Person(name, face, templates));
+        personList.add(new Person(id, name, phone, face, templates));
     }
 
     public Integer deletePerson (String name) {
@@ -81,12 +83,14 @@ public class DBManager extends SQLiteOpenHelper {
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
+            String id = res.getString(res.getColumnIndex("id"));
             String name = res.getString(res.getColumnIndex("name"));
+            String phone = res.getString(res.getColumnIndex("phone"));
             byte[] faceJpg = res.getBlob(res.getColumnIndex("face"));
             byte[] templates = res.getBlob(res.getColumnIndex("templates"));
             Bitmap face = BitmapFactory.decodeByteArray(faceJpg, 0, faceJpg.length);
 
-            Person person = new Person(name, face, templates);
+            Person person = new Person(id, name, phone, face, templates);
             personList.add(person);
 
             res.moveToNext();

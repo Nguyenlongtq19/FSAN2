@@ -23,7 +23,7 @@
         android:id="@+id/dateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="22/12/2023"
         android:textSize="25sp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="105sp"
@@ -71,11 +71,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="15dp"
         android:layout_marginBottom="15sp"
-        android:textStyle="bold"
-        android:text="\nLớp: Chưa cập nhập\nGVCN: Chưa đăng nhập"
-        android:textColor="#075AFF" />
+        android:layout_centerHorizontal="true"
+        android:text="\n           Lớp: 11B6\nGVCN: Bùi Thanh Hiền"
+        android:textColor="#075AFF"
+        android:textSize="15dp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

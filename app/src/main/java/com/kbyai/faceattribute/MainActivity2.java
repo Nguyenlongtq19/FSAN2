@@ -4,14 +4,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.kbyai.facesdk.FaceSDK;
 
+import java.io.BufferedWriter;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,12 +38,21 @@ public class MainActivity2 extends AppCompatActivity {
     private Button loginButton;
     private TextView dateTextView;
 
+    private DBManager dbManager;
+
+    private PersonAdapter personAdapter;
+    private ListView listPerson;
+
+    public MainActivity2() {
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+        //Khai báo giấy phép sử dụng công nghệ nhận diện võng mạc
         int ret = FaceSDK.setActivation(
                 "fGMbqRWAN9PrnQBHd3JtdbNCKJ75REHRN4yenuntm9SghMVrQztH8IQIObnN3hJc6RitR139CwnP\n" +
                         "P/hUVlINXCk48PkGrTJlNsFUm5ErOXL2QWw7IUzQow/DALUwvKOR4Qpz3i0lHKVlrFqMOKb4y3DH\n" +
@@ -42,6 +64,11 @@ public class MainActivity2 extends AppCompatActivity {
         if (ret == FaceSDK.SDK_SUCCESS) {
             ret = FaceSDK.init(getAssets());
         }
+
+
+        //Khởi tạo cơ sở dữ liệu
+        dbManager = new DBManager(this);
+        dbManager.loadPerson();
 
         clockTextView = findViewById(R.id.clockTextView);
 
@@ -76,7 +103,6 @@ public class MainActivity2 extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity2.this, Attendance.class);
                 startActivity(intent);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                finish();
             }
         });
 
@@ -88,7 +114,6 @@ public class MainActivity2 extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity2.this, Login.class);
                 startActivity(intent);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                finish();
             }
         });
 
@@ -101,6 +126,41 @@ public class MainActivity2 extends AppCompatActivity {
 
         // Hiển thị ngày, tháng và năm trên TextView
         dateTextView.setText("" + currentDate);
+
+        writeToGoogleSheets(2,2, "Hello");
+
+
+    }
+
+    public void writeToGoogleSheets(int row, int col, String data) {
+        try {
+            // Thay thế bằng URL triển khai của ứng dụng web từ Google Apps Script
+            String scriptUrl = "https://script.google.com/macros/s/AKfycbxpygtNkrkSZZLc6yqLw12XJKMayC0Gr8HFFm7aAF11GX58BYX9DbJuLInO6B3EDI9P/exec";
+            URL url = new URL(scriptUrl);
+
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("POST");
+
+            // Tạo dữ liệu để gửi lên Google Sheets
+            String postData = "row=" + row + "&col=" + col + "&data=" + data;
+
+            // Gửi dữ liệu thông qua body của request
+            OutputStream outputStream = urlConnection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+            writer.write(postData);
+            writer.flush();
+            writer.close();
+            outputStream.close();
+
+            // Lấy mã phản hồi từ máy chủ
+            int responseCode = urlConnection.getResponseCode();
+
+            // Xử lý phản hồi nếu cần
+
+            urlConnection.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateClock() {
@@ -111,8 +171,15 @@ public class MainActivity2 extends AppCompatActivity {
         // Cập nhật TextView với thời gian hiện tại
         clockTextView.setText(currentTime);
     }
+
     protected void onPause() {
         super.onPause();
-        finish();
     }
+    protected void onStop() {
+        super.onStop();
+    }
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
 }
