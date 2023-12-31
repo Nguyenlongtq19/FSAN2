@@ -36,6 +36,7 @@ public class MainActivity2 extends AppCompatActivity {
     private Handler handler;
     private Button attendanceButton;
     private Button loginButton;
+    private Button autoButton;
     private TextView dateTextView;
 
     private DBManager dbManager;
@@ -52,7 +53,7 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        //Khai báo giấy phép sử dụng công nghệ nhận diện võng mạc
+        //Giấy phép sử dụng thư viện nhận diện khuôn mặt
         int ret = FaceSDK.setActivation(
                 "fGMbqRWAN9PrnQBHd3JtdbNCKJ75REHRN4yenuntm9SghMVrQztH8IQIObnN3hJc6RitR139CwnP\n" +
                         "P/hUVlINXCk48PkGrTJlNsFUm5ErOXL2QWw7IUzQow/DALUwvKOR4Qpz3i0lHKVlrFqMOKb4y3DH\n" +
@@ -60,6 +61,7 @@ public class MainActivity2 extends AppCompatActivity {
                         "lAI75/ElCUYb6vxWCqZFSGLLiDuEyTbz7Npz1rhuQkwmotgLTYrij0zzIt79TccUve9lx2xl/fqS\n" +
                         "y6YUynuO4VN/awOJQFMv4HpFVFVupmU/ezM7Tg=="
         );
+
 
         if (ret == FaceSDK.SDK_SUCCESS) {
             ret = FaceSDK.init(getAssets());
@@ -102,7 +104,17 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity2.this, Attendance.class);
                 startActivity(intent);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            }
+        });
+
+        autoButton = (Button) findViewById(R.id.autoButton);
+
+        autoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity2.this, Attendance.class);
+//                intent.putExtra("type", );
+                startActivity(intent);
             }
         });
 

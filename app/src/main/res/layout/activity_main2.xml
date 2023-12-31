@@ -37,10 +37,21 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/autoButton"
+            android:layout_width="230sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="55dp"
+            android:layout_marginBottom="20sp"
+            android:backgroundTint="@color/bgGreen"
+            android:padding="20sp"
+            android:text="TỰ ĐỘNG"
+            android:textSize="35sp" />
+
+        <Button
             android:id="@+id/attendanceButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50sp"
+            android:layout_marginBottom="20sp"
             android:backgroundTint="@color/bgGreen"
             android:padding="20sp"
             android:text="ĐIỂM DANH"
@@ -61,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20sp"
             android:text="Dành cho quản trị viên"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_gravity="center"/>
@@ -74,7 +85,7 @@
         android:layout_marginBottom="15sp"
         android:layout_centerHorizontal="true"
         android:text="\n           Lớp: 11B6\nGVCN: Bùi Thanh Hiền"
-        android:textColor="#075AFF"
+        android:textColor="@color/white"
         android:textSize="15dp"
         android:textStyle="bold" />
 
