@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -19,15 +22,6 @@
             android:name=".ListPerson"
             android:exported="false" />
         <activity
-            android:name=".listMember"
-            android:exported="false" />
-        <activity
-            android:name=".AddMemberActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AttributeActivity"
-            android:exported="false" />
-        <activity
             android:name=".ResultActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -37,27 +31,13 @@
             android:label="@string/title_activity_settings"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AboutActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".CameraActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".CaptureActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-        <activity android:name=".AddAdmin" />
-        <activity android:name=".AddMember" />
         <activity android:name=".Admin" />
         <activity android:name=".Attendance" />
-        <activity android:name=".AttendanceSuccessful" />
-        <activity android:name=".AttendanceUnSuccessful" />
         <activity android:name=".Login" />
         <activity android:name=".Sent" />
-        <activity android:name=".UnLogin" />
-        <activity android:name=".MainActivity" />
         <activity
             android:name=".MainActivity2"
             android:exported="true"
@@ -68,6 +48,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

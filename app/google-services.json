@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "1083662695577",
+    "firebase_url": "https://fsan-df806-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "fsan-df806",
+    "storage_bucket": "fsan-df806.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1083662695577:android:567ec1cd9f7b262ed04c08",
+        "android_client_info": {
+          "package_name": "com.kbyai.faceattribute"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMZHpXcm9nJQMaXHey-NiY6RARWfOlN2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1083662695577:android:c01a1053887ae300d04c08",
+        "android_client_info": {
+          "package_name": "com.kbyai.facerecognition"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMZHpXcm9nJQMaXHey-NiY6RARWfOlN2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

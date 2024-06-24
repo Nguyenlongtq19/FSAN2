@@ -1,4 +1,4 @@
-package com.kbyai.faceattribute;
+package com.kbyai.facerecognition;
 
 
 import static androidx.camera.core.ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST;
@@ -13,10 +13,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.util.Size;
-import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,8 +28,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.common.util.concurrent.ListenableFuture;
-import com.kbyai.faceattribute.ResultActivity;
-import com.kbyai.faceattribute.SettingsActivity;
 import com.kbyai.facesdk.FaceBox;
 import com.kbyai.facesdk.FaceDetectionParam;
 import com.kbyai.facesdk.FaceSDK;
@@ -299,4 +294,5 @@ public class Attendance extends AppCompatActivity {
         // Remove any pending auto-logout callbacks to avoid leaks
         autoLogoutHandler.removeCallbacks(autoLogoutRunnable);
     }
+
 }

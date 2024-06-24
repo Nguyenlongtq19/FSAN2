@@ -1,23 +1,16 @@
-package com.kbyai.faceattribute;
+package com.kbyai.facerecognition;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.kbyai.facesdk.FaceSDK;
 
 import java.io.BufferedWriter;
@@ -54,12 +47,20 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
 
         //Giấy phép sử dụng thư viện nhận diện khuôn mặt
+//        int ret = FaceSDK.setActivation(
+//                "fGMbqRWAN9PrnQBHd3JtdbNCKJ75REHRN4yenuntm9SghMVrQztH8IQIObnN3hJc6RitR139CwnP\n" +
+//                        "P/hUVlINXCk48PkGrTJlNsFUm5ErOXL2QWw7IUzQow/DALUwvKOR4Qpz3i0lHKVlrFqMOKb4y3DH\n" +
+//                        "Dhb/Fh6KLywr5aWy5Lwv/hutFqe6gao9xVqpbOLq2yP+OIjPpW0teMxEjSKGhuQftp7lV9tEnv9B\n" +
+//                        "lAI75/ElCUYb6vxWCqZFSGLLiDuEyTbz7Npz1rhuQkwmotgLTYrij0zzIt79TccUve9lx2xl/fqS\n" +
+//                        "y6YUynuO4VN/awOJQFMv4HpFVFVupmU/ezM7Tg=="
+//        );
+
         int ret = FaceSDK.setActivation(
-                "fGMbqRWAN9PrnQBHd3JtdbNCKJ75REHRN4yenuntm9SghMVrQztH8IQIObnN3hJc6RitR139CwnP\n" +
-                        "P/hUVlINXCk48PkGrTJlNsFUm5ErOXL2QWw7IUzQow/DALUwvKOR4Qpz3i0lHKVlrFqMOKb4y3DH\n" +
-                        "Dhb/Fh6KLywr5aWy5Lwv/hutFqe6gao9xVqpbOLq2yP+OIjPpW0teMxEjSKGhuQftp7lV9tEnv9B\n" +
-                        "lAI75/ElCUYb6vxWCqZFSGLLiDuEyTbz7Npz1rhuQkwmotgLTYrij0zzIt79TccUve9lx2xl/fqS\n" +
-                        "y6YUynuO4VN/awOJQFMv4HpFVFVupmU/ezM7Tg=="
+                "A9/DTjBqzv4yozfPbEfCDmtCTJirR3E2TrXLaetUzAeCozb3H7cIIR4KcNOQZdHdw08sxPLwQzMH\\n\" +\n" +
+                        "                    \"jkLpuu5SNne+rVaBZA8LeOq84ZEXl1av+T29m2DVW0tiqlMoaMdVcbg7Xf8bsNTcMvMabTNMN/2+\\n\" +\n" +
+                        "                    \"bfAt5qTWYKFYQq77hXpZS9UDgw/YCJB8jIMzQu1zglG+xce5ZjsWSc7ZI7rGkNh32956MeVSFAd5\\n\" +\n" +
+                        "                    \"n9v+SoVnjslBvIR9XRcUEVu4rvwFFKbQyxxBNTl2A6trT/wspZQLdfrIEiaCtbjmOQP8aYTmd8v9\\n\" +\n" +
+                        "                    \"a3yIO5zlY3u2MM4IP1SGGbZD/LAbHYTyveUDZw=="
         );
 
 

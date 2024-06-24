@@ -1,4 +1,4 @@
-package com.kbyai.faceattribute;
+package com.kbyai.facerecognition;
 
 
 import static androidx.camera.core.ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST;
@@ -14,13 +14,10 @@ import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.Layout;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Size;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +33,6 @@ import androidx.camera.view.PreviewView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import com.kbyai.faceattribute.SettingsActivity;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.kbyai.facesdk.FaceBox;
@@ -45,7 +41,6 @@ import com.kbyai.facesdk.FaceSDK;
 
 import java.nio.ByteBuffer;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

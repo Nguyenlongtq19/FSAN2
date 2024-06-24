@@ -1,4 +1,4 @@
-package com.kbyai.faceattribute;
+package com.kbyai.facerecognition;
 
 import android.content.Intent;
 import android.os.Bundle;

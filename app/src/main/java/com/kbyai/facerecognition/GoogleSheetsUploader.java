@@ -1,4 +1,4 @@
-package com.kbyai.faceattribute;
+package com.kbyai.facerecognition;
 import java.io.BufferedWriter;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;

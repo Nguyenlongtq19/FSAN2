@@ -1,4 +1,4 @@
-package com.kbyai.faceattribute;
+package com.kbyai.facerecognition;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -11,7 +11,7 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
-import com.kbyai.faceattribute.SettingsActivity;
+import com.kbyai.facerecognition.SettingsActivity;
 import com.kbyai.facesdk.FaceBox;
 
 import java.util.List;

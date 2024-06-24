@@ -1,4 +1,4 @@
-package com.kbyai.faceattribute
+package com.kbyai.facerecognition
 
 import android.content.Context
 import android.os.Bundle
@@ -25,19 +25,19 @@ class SettingsActivity : AppCompatActivity() {
         @JvmStatic
         fun getLivenessThreshold(context: Context): Float {
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return sharedPreferences.getString("liveness_threshold", SettingsActivity.DEFAULT_LIVENESS_THRESHOLD)!!.toFloat()
+            return sharedPreferences.getString("liveness_threshold", DEFAULT_LIVENESS_THRESHOLD)!!.toFloat()
         }
 
         @JvmStatic
         fun getIdentifyThreshold(context: Context): Float {
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return sharedPreferences.getString("identify_threshold", SettingsActivity.DEFAULT_IDENTIFY_THRESHOLD)!!.toFloat()
+            return sharedPreferences.getString("identify_threshold", DEFAULT_IDENTIFY_THRESHOLD)!!.toFloat()
         }
 
         @JvmStatic
         fun getCameraLens(context: Context): Int {
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            val cameraLens = sharedPreferences.getString("camera_lens", SettingsActivity.DEFAULT_CAMERA_LENS)
+            val cameraLens = sharedPreferences.getString("camera_lens", DEFAULT_CAMERA_LENS)
             if(cameraLens == "back") {
                 return CameraSelector.LENS_FACING_BACK
             } else {
@@ -48,7 +48,7 @@ class SettingsActivity : AppCompatActivity() {
         @JvmStatic
         fun getLivenessLevel(context: Context): Int {
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            val livenessLevel = sharedPreferences.getString("liveness_level", SettingsActivity.DEFAULT_LIVENESS_LEVEL)
+            val livenessLevel = sharedPreferences.getString("liveness_level", DEFAULT_LIVENESS_LEVEL)
             if(livenessLevel == "0") {
                 return 0
             } else {
@@ -59,37 +59,37 @@ class SettingsActivity : AppCompatActivity() {
         @JvmStatic
         fun getYawThreshold(context: Context): Float {
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return sharedPreferences.getString("yaw_threshold", SettingsActivity.DEFAULT_YAW_THRESHOLD)!!.toFloat()
+            return sharedPreferences.getString("yaw_threshold", DEFAULT_YAW_THRESHOLD)!!.toFloat()
         }
 
         @JvmStatic
         fun getRollThreshold(context: Context): Float {
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return sharedPreferences.getString("roll_threshold", SettingsActivity.DEFAULT_ROLL_THRESHOLD)!!.toFloat()
+            return sharedPreferences.getString("roll_threshold", DEFAULT_ROLL_THRESHOLD)!!.toFloat()
         }
 
         @JvmStatic
         fun getPitchThreshold(context: Context): Float {
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return sharedPreferences.getString("pitch_threshold", SettingsActivity.DEFAULT_PITCH_THRESHOLD)!!.toFloat()
+            return sharedPreferences.getString("pitch_threshold", DEFAULT_PITCH_THRESHOLD)!!.toFloat()
         }
 
         @JvmStatic
         fun getOcclusionThreshold(context: Context): Float {
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return sharedPreferences.getString("occlusion_threshold", SettingsActivity.DEFAULT_OCCLUSION_THRESHOLD)!!.toFloat()
+            return sharedPreferences.getString("occlusion_threshold", DEFAULT_OCCLUSION_THRESHOLD)!!.toFloat()
         }
 
         @JvmStatic
         fun getEyecloseThreshold(context: Context): Float {
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return sharedPreferences.getString("eyeclose_threshold", SettingsActivity.DEFAULT_EYECLOSE_THRESHOLD)!!.toFloat()
+            return sharedPreferences.getString("eyeclose_threshold", DEFAULT_EYECLOSE_THRESHOLD)!!.toFloat()
         }
 
         @JvmStatic
         fun getMouthopenThreshold(context: Context): Float {
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return sharedPreferences.getString("mouthopen_threshold", SettingsActivity.DEFAULT_MOUTHOPEN_THRESHOLD)!!.toFloat()
+            return sharedPreferences.getString("mouthopen_threshold", DEFAULT_MOUTHOPEN_THRESHOLD)!!.toFloat()
         }
     }
 
@@ -247,16 +247,16 @@ class SettingsActivity : AppCompatActivity() {
 
             buttonRestorePref?.setOnPreferenceClickListener {
 
-                cameraLensPref?.value = SettingsActivity.DEFAULT_CAMERA_LENS
-                livenessLevelPref?.value = SettingsActivity.DEFAULT_LIVENESS_LEVEL
-                livenessThresholdPref?.text = SettingsActivity.DEFAULT_LIVENESS_THRESHOLD
-                identifyThresholdPref?.text = SettingsActivity.DEFAULT_IDENTIFY_THRESHOLD
-                yawThresholdPref?.text = SettingsActivity.DEFAULT_YAW_THRESHOLD
-                rollThresholdPref?.text = SettingsActivity.DEFAULT_ROLL_THRESHOLD
-                pitchThresholdPref?.text = SettingsActivity.DEFAULT_PITCH_THRESHOLD
-                occlusionThresholdPref?.text = SettingsActivity.DEFAULT_OCCLUSION_THRESHOLD
-                eyeCloseThresholdPref?.text = SettingsActivity.DEFAULT_EYECLOSE_THRESHOLD
-                mouthOpenThresholdPref?.text = SettingsActivity.DEFAULT_MOUTHOPEN_THRESHOLD
+                cameraLensPref?.value = DEFAULT_CAMERA_LENS
+                livenessLevelPref?.value = DEFAULT_LIVENESS_LEVEL
+                livenessThresholdPref?.text = DEFAULT_LIVENESS_THRESHOLD
+                identifyThresholdPref?.text = DEFAULT_IDENTIFY_THRESHOLD
+                yawThresholdPref?.text = DEFAULT_YAW_THRESHOLD
+                rollThresholdPref?.text = DEFAULT_ROLL_THRESHOLD
+                pitchThresholdPref?.text = DEFAULT_PITCH_THRESHOLD
+                occlusionThresholdPref?.text = DEFAULT_OCCLUSION_THRESHOLD
+                eyeCloseThresholdPref?.text = DEFAULT_EYECLOSE_THRESHOLD
+                mouthOpenThresholdPref?.text = DEFAULT_MOUTHOPEN_THRESHOLD
 
 
                 Toast.makeText(activity, getString(R.string.restored_default_settings), Toast.LENGTH_LONG).show()

@@ -1,4 +1,4 @@
-package com.kbyai.faceattribute
+package com.kbyai.facerecognition
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
